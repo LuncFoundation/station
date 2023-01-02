@@ -21,10 +21,10 @@ jobs:
               run: |
                 export NVM_DIR="$HOME/.nvm"
                 source $HOME/.bash_profile
-                nvm use 16
 
             - name: debug
               run: |
+                nvm use 16
                 node -v
 
             # - name: Installing Packages
