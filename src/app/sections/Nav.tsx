@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import { mobileIsMenuOpenState } from "components/layout"
 import { useNav } from "../routes"
 import styles from "./Nav.module.scss"
+import { ReactComponent as Logo } from "styles/images/lf.svg"
 
 const cx = classNames.bind(styles)
 
@@ -20,7 +21,7 @@ const Nav = () => {
     <nav>
       <header className={styles.header}>
         <NavLink to="/" className={classNames(styles.item, styles.logo)}>
-          <strong>Terra</strong> Station
+          <Logo className={styles.svglogo} width={150} />
         </NavLink>
 
         <button className={styles.toggle} onClick={toggle}>
