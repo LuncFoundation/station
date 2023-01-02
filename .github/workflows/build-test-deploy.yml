@@ -17,6 +17,7 @@ jobs:
               run: workflow_queue queue lfx
 
             - name: Use Node 16
+              shell: bash -l {0}
               run: nvm use 16
 
             - name: Installing Packages
@@ -38,6 +39,7 @@ jobs:
             #     ssh virtuo@167.71.69.147 "mkdir -p ~/castingapp && cd ~/castingapp && ./build-app-image.sh castingapp prod && ./swap-all.sh castingapp prod"
 
             - name: Use Node LTS
+              shell: bash -l {0}
               run: nvm use --lts
 
             - name: Unlocking The Build Queue
