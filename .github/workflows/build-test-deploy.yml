@@ -16,7 +16,7 @@ jobs:
             - name: Locking the build queue
               run: workflow_queue queue lfx
 
-            - name: check nvm location
+            - name: Set NVM to 16
               shell: bash -l -eo pipefail {0}
               run: |
                 export NVM_DIR="$HOME/.nvm"
@@ -24,38 +24,39 @@ jobs:
                 source "$NVM_DIR/nvm.sh"
                 nvm use 16
 
-            - name: Installing Packages
-              run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                npm install
+            # - name: Installing Packages
+            #   run: |
+            #     export NVM_DIR="$HOME/.nvm"
+            #     echo $NVM_DIR
+            #     source "$NVM_DIR/nvm.sh"
+            #     npm install
 
-            - name: Build Packages
-              run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                npm run build
-                tar czvf station.tgz build
+            # - name: Build Packages
+            #   run: |
+            #     export NVM_DIR="$HOME/.nvm"
+            #     echo $NVM_DIR
+            #     source "$NVM_DIR/nvm.sh"
+            #     npm run build
+            #     tar czvf station.tgz build
 
-            - name: use lts
-              run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                nvm use --lts
-                node --version
+            # - name: Set NVM to LTS
+            #   shell: bash -l -eo pipefail {0}
+            #   run: |
+            #     export NVM_DIR="$HOME/.nvm"
+            #     echo $NVM_DIR
+            #     source "$NVM_DIR/nvm.sh"
+            #     nvm use --lts
+
 
             # - name: Development Deployment
             #   if: ${{ github.ref == 'refs/heads/develop' }}
             #   run: |
             #     ssh virtuo@lfstation "mkdir -p ~/castingapp && cd ~/castingapp && ./build-app-image.sh castingapp dev && ./swap-all.sh castingapp dev"
 
-            # - name: Production Deployment
-            #   if: ${{ github.ref == 'refs/heads/master' }}
-            #   run: |
-            #     ssh virtuo@167.71.69.147 "mkdir -p ~/castingapp && cd ~/castingapp && ./build-app-image.sh castingapp prod && ./swap-all.sh castingapp prod"
+            - name: Production Deployment
+              if: ${{ github.ref == 'refs/heads/main' }}
+              run: |
+                scp ./station.tgz station@lfstation:/home/station
 
             - name: Unlocking The Build Queue
               if: always()
