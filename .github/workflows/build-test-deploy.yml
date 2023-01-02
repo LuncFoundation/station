@@ -23,6 +23,7 @@ jobs:
                 source $HOME/.bash_profile
 
             - name: debug1
+              shell: bash -l {0}
               run: |
                 nvm use 16
                 node -v
