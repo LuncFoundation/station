@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next"
 import DescriptionIcon from "@mui/icons-material/Description"
-import { TUTORIAL } from "config/constants"
+import { TUTORIAL, LUNC_WIKI } from "config/constants"
 import { useIsClassic } from "data/query"
 import { ExternalLink } from "components/general"
 import { Contacts } from "components/layout"
@@ -30,6 +30,10 @@ const Links = () => {
         <ExternalLink href={TUTORIAL} className={styles.link}>
           <DescriptionIcon style={{ fontSize: 18 }} />
           {t("Tutorial")}
+        </ExternalLink>
+        <ExternalLink href={LUNC_WIKI} className={styles.link}>
+          <DescriptionIcon style={{ fontSize: 18 }} />
+          {t("LUNC Wiki")}
         </ExternalLink>
       </div>
 

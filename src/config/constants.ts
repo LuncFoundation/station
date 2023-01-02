@@ -16,6 +16,8 @@ export const EXTENSION =
 export const TUTORIAL =
   "https://docs.terra.money/learn/terra-station/Download/terra-station-desktop.html"
 
+export const LUNC_WIKI = "https://www.luncwikipedia.com/"
+
 /* website: stake */
 export const TERRA_VALIDATORS =
   "https://github.com/terra-money/validator-profiles/tree/master/validators/"

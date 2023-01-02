@@ -6,6 +6,8 @@
 
 /* tutorial */
 .tutorial {
+  display: flex;
+  flex-direction: row;
   border-bottom: 1px solid var(--menu-border);
 }
 
