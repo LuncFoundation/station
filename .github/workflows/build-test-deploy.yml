@@ -21,15 +21,17 @@ jobs:
               run: |
                 export NVM_DIR="$HOME/.nvm"
                 echo $NVM_DIR
-                nvm --help
+                source "$NVM_DIR/nvm.sh"
+                nvm use 16
 
-            # - name: Installing Packages
-            #   run: |
-            #     npm install
+            - name: Installing Packages
+              run: |
+                node --version
 
-            # - name: Building the Project
-            #   run: |
-            #     npm run build
+            - name: use lts
+              run: |
+                nvm use --lts
+                node --version
 
             # - name: Development Deployment
             #   if: ${{ github.ref == 'refs/heads/develop' }}
