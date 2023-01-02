@@ -36,7 +36,7 @@ jobs:
                 export NVM_DIR="$HOME/.nvm"
                 echo $NVM_DIR
                 source "$NVM_DIR/nvm.sh"
-                npm build
+                npm run build
 
             - name: use lts
               run: |
