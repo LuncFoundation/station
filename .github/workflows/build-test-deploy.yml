@@ -22,7 +22,7 @@ jobs:
                 export NVM_DIR="$HOME/.nvm"
                 source $HOME/.bash_profile
 
-            - name: debug
+            - name: debug1
               run: |
                 nvm use 16
                 node -v
@@ -45,13 +45,9 @@ jobs:
             #   run: |
             #     ssh virtuo@167.71.69.147 "mkdir -p ~/castingapp && cd ~/castingapp && ./build-app-image.sh castingapp prod && ./swap-all.sh castingapp prod"
 
-            - name: Use Node LTS
-              shell: bash -l {0}
+            - name: debug2
               run: |
                 nvm use --lts
-
-            - name: debug
-              run: |
                 node -v
 
             - name: Unlocking The Build Queue
