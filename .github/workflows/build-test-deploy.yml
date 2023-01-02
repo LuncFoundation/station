@@ -18,19 +18,10 @@ jobs:
 
             - name: check nvm location
               shell: bash -l -eo pipefail {0}
-              run: echo $NVM_DIR
-
-            - name: Install nvm
-              shell: bash -l {0}
               run: |
                 export NVM_DIR="$HOME/.nvm"
-                source $HOME/.bash_profile
-
-            - name: debug1
-              shell: bash -l {0}
-              run: |
-                nvm use 16
-                node -v
+                echo $NVM_DIR
+                nvm --help
 
             # - name: Installing Packages
             #   run: |
@@ -49,11 +40,6 @@ jobs:
             #   if: ${{ github.ref == 'refs/heads/master' }}
             #   run: |
             #     ssh virtuo@167.71.69.147 "mkdir -p ~/castingapp && cd ~/castingapp && ./build-app-image.sh castingapp prod && ./swap-all.sh castingapp prod"
-
-            - name: debug2
-              run: |
-                nvm use --lts
-                node -v
 
             - name: Unlocking The Build Queue
               if: always()
