@@ -18,24 +18,22 @@ jobs:
 
             - name: Install nvm
               shell: bash -l {0}
-              # In case if we need to use node or nvm - we should only use it from `bash -l {0}` shell.
               run: |
-                cd ..
-                echo $HOME
-                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
                 export NVM_DIR="$HOME/.nvm"
-                echo "source $NVM_DIR/nvm.sh --install" >> "$HOME/.bash_profile"
-                cd -
                 source $HOME/.bash_profile
-                nvm install
+                nvm use 16
 
-            - name: Installing Packages
+            - name: debug
               run: |
-                npm install
+                node -v
 
-            - name: Building the Project
-              run: |
-                npm run build
+            # - name: Installing Packages
+            #   run: |
+            #     npm install
+
+            # - name: Building the Project
+            #   run: |
+            #     npm run build
 
             # - name: Development Deployment
             #   if: ${{ github.ref == 'refs/heads/develop' }}
@@ -49,7 +47,12 @@ jobs:
 
             - name: Use Node LTS
               shell: bash -l {0}
-              run: nvm use --lts
+              run: |
+                nvm use --lts
+
+            - name: debug
+              run: |
+                node -v
 
             - name: Unlocking The Build Queue
               if: always()
