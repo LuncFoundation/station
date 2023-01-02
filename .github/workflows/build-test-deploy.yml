@@ -16,6 +16,10 @@ jobs:
             - name: Locking the build queue
               run: workflow_queue queue lfx
 
+            - name: check nvm location
+              shell: bash -l -eo pipefail {0}
+              run: echo $NVM_DIR
+
             - name: Install nvm
               shell: bash -l {0}
               run: |
