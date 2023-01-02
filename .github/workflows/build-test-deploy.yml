@@ -29,7 +29,14 @@ jobs:
                 export NVM_DIR="$HOME/.nvm"
                 echo $NVM_DIR
                 source "$NVM_DIR/nvm.sh"
-                node --version
+                npm install
+
+            - name: Build Packages
+              run: |
+                export NVM_DIR="$HOME/.nvm"
+                echo $NVM_DIR
+                source "$NVM_DIR/nvm.sh"
+                npm build
 
             - name: use lts
               run: |
