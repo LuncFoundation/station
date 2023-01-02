@@ -24,28 +24,28 @@ jobs:
                 source "$NVM_DIR/nvm.sh"
                 nvm use 16
 
-            # - name: Installing Packages
-            #   run: |
-            #     export NVM_DIR="$HOME/.nvm"
-            #     echo $NVM_DIR
-            #     source "$NVM_DIR/nvm.sh"
-            #     npm install
+            - name: Installing Packages
+              run: |
+                export NVM_DIR="$HOME/.nvm"
+                echo $NVM_DIR
+                source "$NVM_DIR/nvm.sh"
+                npm install
 
-            # - name: Build Packages
-            #   run: |
-            #     export NVM_DIR="$HOME/.nvm"
-            #     echo $NVM_DIR
-            #     source "$NVM_DIR/nvm.sh"
-            #     npm run build
-            #     tar czvf station.tgz build
+            - name: Build Packages
+              run: |
+                export NVM_DIR="$HOME/.nvm"
+                echo $NVM_DIR
+                source "$NVM_DIR/nvm.sh"
+                npm run build
+                tar czvf station.tgz build
 
-            # - name: Set NVM to LTS
-            #   shell: bash -l -eo pipefail {0}
-            #   run: |
-            #     export NVM_DIR="$HOME/.nvm"
-            #     echo $NVM_DIR
-            #     source "$NVM_DIR/nvm.sh"
-            #     nvm use --lts
+            - name: Set NVM to LTS
+              shell: bash -l -eo pipefail {0}
+              run: |
+                export NVM_DIR="$HOME/.nvm"
+                echo $NVM_DIR
+                source "$NVM_DIR/nvm.sh"
+                nvm use --lts
 
 
             # - name: Development Deployment
@@ -56,7 +56,9 @@ jobs:
             - name: Production Deployment
               if: ${{ github.ref == 'refs/heads/main' }}
               run: |
-                scp ./station.tgz station@lfstation:/home/station
+                ssh station@lfstation "mkdir -p ~/deploy/main"
+                scp ./station.tgz station@lfstation:/home/station/deploy/main
+                ssh station@lfstation "cd ~/deploy && ./deploy.sh main/station.tgz station.lunc.foundation"
 
             - name: Unlocking The Build Queue
               if: always()
