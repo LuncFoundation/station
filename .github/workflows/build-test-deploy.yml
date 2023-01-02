@@ -16,11 +16,18 @@ jobs:
             - name: Locking the build queue
               run: workflow_queue queue lfx
 
-            - name: Use Node 16
-              shell: bash --login {0}
+            - name: Install nvm
+              shell: bash -l {0}
+              # In case if we need to use node or nvm - we should only use it from `bash -l {0}` shell.
               run: |
-                echo {0}
-                nvm use 16
+                cd ..
+                echo $HOME
+                curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+                export NVM_DIR="$HOME/.nvm"
+                echo "source $NVM_DIR/nvm.sh --install" >> "$HOME/.bash_profile"
+                cd -
+                source $HOME/.bash_profile
+                nvm install
 
             - name: Installing Packages
               run: |
