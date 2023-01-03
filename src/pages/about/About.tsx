@@ -15,6 +15,10 @@ This Station is being maintained and further developed by: [Gevik](https://twitt
 
 Please follow our twitter account for any questions and updates at: [LuncFoundation](https://twitter.com/LuncFoundation)
 
+# Disclaimer
+THIS WEBSITE AND ITS CREATORS AND MAINTAINERS ARE NOT RESPONSIBLE, DIRECTLY OR INDIRECTLY, FOR ANY LOSS
+OR DAMAGE THAT MAY BE CAUSED BY THE USE OF THIS WEBSITE. USE IT AT YOUR OWN RISK AND PLEASE DO YOUR OWN RESEARCH.
+
 # Release Notes
 
 ## 3 January 2023
