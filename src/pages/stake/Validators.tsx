@@ -135,7 +135,9 @@ const Validators = () => {
                 {t("Delegated only")}
               </Toggle>
             </TooltipIcon>
-            <TooltipIcon content={<span>Show delegated validators only</span>}>
+            <TooltipIcon
+              content={<span>Show undelegated validators only</span>}
+            >
               <Toggle
                 checked={byUnDelegated}
                 onChange={() => {
