@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, useCallback } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import VerifiedIcon from "@mui/icons-material/Verified"
@@ -18,7 +18,6 @@ import WithSearchInput from "pages/custom/WithSearchInput"
 import ProfileIcon from "./components/ProfileIcon"
 import { ValidatorJailed } from "./components/ValidatorTag"
 import styles from "./Validators.module.scss"
-import shuffle from "utils/shuffle"
 
 const Validators = () => {
   const { t } = useTranslation()
@@ -34,13 +33,40 @@ const Validators = () => {
     undelegationsState
   )
 
+  const [byDelegated, setByDelegated] = useState(false)
+  const [byUnDelegated, setByUnDelegated] = useState(false)
+
+  const isDelegated = useCallback(
+    (operator_address: string) => {
+      return delegations?.find(
+        ({ validator_address }) => validator_address === operator_address
+      )
+    },
+    [delegations]
+  )
+
+  const isUnDelegated = useCallback(
+    (operator_address: string) => {
+      return undelegations?.find(
+        ({ validator_address }) => validator_address === operator_address
+      )
+    },
+    [undelegations]
+  )
+
   const activeValidators = useMemo(() => {
     if (!validators) return null
 
     const calcRate = getCalcVotingPowerRate(validators)
 
-    return shuffle(validators)
-      .filter(({ status }) => !getIsUnbonded(status))
+    return validators
+      .filter(({ status, operator_address }) => {
+        return (
+          !getIsUnbonded(status) &&
+          (byDelegated === false ? true : isDelegated(operator_address)) &&
+          (byUnDelegated === false ? true : isUnDelegated(operator_address))
+        )
+      })
       .map((validator) => {
         const { operator_address } = validator
 
@@ -51,7 +77,7 @@ const Validators = () => {
           voting_power_rate,
         }
       })
-  }, [validators])
+  }, [byDelegated, byUnDelegated, isDelegated, isUnDelegated, validators])
 
   const renderCount = () => {
     if (!validators) return null
@@ -66,7 +92,7 @@ const Validators = () => {
     return (
       <>
         {isClassic && (
-          <section>
+          <section className={styles.togglewrapper}>
             <TooltipIcon
               content={
                 <article>
@@ -94,6 +120,32 @@ const Validators = () => {
             >
               <Toggle checked={byRank} onChange={() => setByRank(!byRank)}>
                 {t("Weighted score")}
+              </Toggle>
+            </TooltipIcon>
+            <TooltipIcon content={<span>Show delegated validators only</span>}>
+              <Toggle
+                checked={byDelegated}
+                onChange={() => {
+                  if (byUnDelegated) {
+                    setByUnDelegated(false)
+                  }
+                  setByDelegated(!byDelegated)
+                }}
+              >
+                {t("Delegated only")}
+              </Toggle>
+            </TooltipIcon>
+            <TooltipIcon content={<span>Show delegated validators only</span>}>
+              <Toggle
+                checked={byUnDelegated}
+                onChange={() => {
+                  if (byDelegated) {
+                    setByDelegated(false)
+                  }
+                  setByUnDelegated(!byUnDelegated)
+                }}
+              >
+                {t("Undelegated only")}
               </Toggle>
             </TooltipIcon>
           </section>

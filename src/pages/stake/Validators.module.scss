@@ -17,3 +17,17 @@
 .tooltip {
   white-space: nowrap;
 }
+
+.togglewrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  > span {
+    margin: 1rem;
+  }
+
+  @include desktop {
+    flex-direction: row;
+  }
+}
