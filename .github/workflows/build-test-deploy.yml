@@ -47,12 +47,6 @@ jobs:
                 source "$NVM_DIR/nvm.sh"
                 nvm use --lts
 
-
-            # - name: Development Deployment
-            #   if: ${{ github.ref == 'refs/heads/develop' }}
-            #   run: |
-            #     ssh virtuo@lfstation "mkdir -p ~/castingapp && cd ~/castingapp && ./build-app-image.sh castingapp dev && ./swap-all.sh castingapp dev"
-
             - name: Production Deployment
               if: ${{ github.ref == 'refs/heads/main' }}
               run: |
