@@ -24,6 +24,9 @@ OR DAMAGE THAT MAY BE CAUSED BY THE USE OF THIS WEBSITE. USE IT AT YOUR OWN RISK
 ## Next Update
 1. Disconnect from TFL endpoint and reconnect the Station to [PublicNode](https://terra-classic.publicnode.com)
 
+## 7 January 203
+1. Updated server infrastructure and strengthened security.
+
 ## 3 January 2023
 1. Fixed minor styling issues
 2. Added 2x additional filters to Stake page to filter Delegated and Undelegated validators
