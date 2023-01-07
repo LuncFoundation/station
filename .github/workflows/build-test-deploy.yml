@@ -2,9 +2,7 @@ name: BuildTestDeploy
 on:
     push:
         branches:
-            - "*" # matches every branch that doesn't contain a '/'
-            - "*/*" # matches every branch containing a single '/'
-            - "**" # matches every branch
+            - "main" # matches every branch that doesn't contain a '/'
 jobs:
     BuildTestDeploy:
         runs-on: self-hosted
@@ -19,40 +17,40 @@ jobs:
             - name: Set NVM to 16
               shell: bash -l -eo pipefail {0}
               run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                nvm use 16
+                  export NVM_DIR="$HOME/.nvm"
+                  echo $NVM_DIR
+                  source "$NVM_DIR/nvm.sh"
+                  nvm use 16
 
             - name: Installing Packages
               run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                npm install
+                  export NVM_DIR="$HOME/.nvm"
+                  echo $NVM_DIR
+                  source "$NVM_DIR/nvm.sh"
+                  npm install
 
             - name: Build Packages
               run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                npm run build
-                tar czvf station.tgz build
+                  export NVM_DIR="$HOME/.nvm"
+                  echo $NVM_DIR
+                  source "$NVM_DIR/nvm.sh"
+                  npm run build
+                  tar czvf station.tgz build
 
             - name: Set NVM to LTS
               shell: bash -l -eo pipefail {0}
               run: |
-                export NVM_DIR="$HOME/.nvm"
-                echo $NVM_DIR
-                source "$NVM_DIR/nvm.sh"
-                nvm use --lts
+                  export NVM_DIR="$HOME/.nvm"
+                  echo $NVM_DIR
+                  source "$NVM_DIR/nvm.sh"
+                  nvm use --lts
 
             - name: Production Deployment
               if: ${{ github.ref == 'refs/heads/main' }}
               run: |
-                ssh station@lfstation "mkdir -p ~/deploy/main"
-                scp ./station.tgz station@lfstation:/home/station/deploy/main
-                ssh station@lfstation "cd ~/deploy && ./deploy.sh main/station.tgz station.lunc.foundation"
+                  ssh station@lfstation "mkdir -p ~/deploy/main"
+                  scp ./station.tgz station@lfstation:/home/station/deploy/main
+                  ssh station@lfstation "cd ~/deploy && ./deploy.sh main/station.tgz station.lunc.foundation"
 
             - name: Unlocking The Build Queue
               if: always()
